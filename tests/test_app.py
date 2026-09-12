@@ -18,3 +18,4 @@ def test_root_and_health():
     assert health.status_code == 200
     assert health.get_json()["database"] == "ok"
     
+    
