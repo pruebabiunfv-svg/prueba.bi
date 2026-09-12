@@ -1,0 +1,35 @@
+-- Tabla esperada: Ranking
+
+Mejor Activo =
+MAXX(
+    TOPN(1, Ranking, Ranking[ProbabilidadFavorable], DESC, Ranking[Ticker], ASC),
+    Ranking[Ticker]
+)
+
+Probabilidad Mejor Activo =
+MAXX(
+    TOPN(1, Ranking, Ranking[ProbabilidadFavorable], DESC, Ranking[Ticker], ASC),
+    Ranking[ProbabilidadFavorable]
+)
+-- Formatear como porcentaje en Power BI.
+
+Sentimiento Mejor Activo =
+MAXX(
+    TOPN(1, Ranking, Ranking[ProbabilidadFavorable], DESC, Ranking[Ticker], ASC),
+    Ranking[SentimientoScore]
+)
+
+Probabilidad Promedio =
+AVERAGE(Ranking[ProbabilidadFavorable])
+
+Activos Evaluados =
+DISTINCTCOUNT(Ranking[Ticker])
+
+Ranking Visual =
+RANKX(
+    ALLSELECTED(Ranking[Ticker]),
+    CALCULATE(MAX(Ranking[ProbabilidadFavorable])),
+    ,
+    DESC,
+    Dense
+)

@@ -1,0 +1,39 @@
+QUICKSTART
+==========
+
+LOCAL DEMO
+1) python -m venv .venv
+2) activar .venv
+3) pip install -r requirements.txt
+4) copiar .env.example a .env
+5) usar DATABASE_URL=sqlite:///local_inversion_bi.db
+6) python scripts/init_db.py
+7) python scripts/seed_demo.py
+8) python main.py
+9) abrir http://127.0.0.1:5000/api/dashboard
+
+RAILWAY
+1) Subir este directorio a GitHub.
+2) Railway > New Project > Deploy from GitHub.
+3) Agregar MySQL.
+4) API variable: DATABASE_URL=${{MySQL.MYSQL_URL}}
+5) Agregar HF_TOKEN, FRED_API_KEY, SEC_USER_AGENT y PBI_API_KEY.
+6) Generate Domain para la API.
+7) Crear segundo servicio desde el mismo repo.
+8) Start Command del segundo servicio: python jobs/run_pipeline.py
+9) Configurar Cron Schedule (ej. 0 5 * * 1, UTC) y compartir variables/MySQL.
+
+HUGGING FACE
+HF_MODEL=ProsusAI/finbert
+HF_PROVIDER=hf-inference
+HF_TOKEN=tu_token
+Prueba: python scripts/check_connections.py
+
+POWER BI
+1) Copiar powerbi/PowerQuery_Ranking.m en una Consulta en blanco.
+2) Cambiar ApiBaseUrl por el dominio Railway.
+3) Elegir autenticacion Web API e ingresar PBI_API_KEY.
+4) Publicar PBIX en Power BI Service.
+5) Configurar credenciales y Schedule refresh.
+
+Ver guias completas en docs/.
